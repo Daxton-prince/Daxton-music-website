@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>DJ Daxton music website </title>
-  <meta name="description" content="DJ mixes player — stream & download mixes in the palm of your hands ." />
+  <title>DJ Daxton | Premium Mixes</title>
+  <meta name="description" content="DJ mixes player — stream & download mixes in the palm of your hands" />
   <style>
     :root{
       --bg:#071724;
@@ -12,166 +12,335 @@
       --icy-2:#dff7ff;
       --card:#0b2b3a;
       --gold:#ffd700;
+      --transition: all 0.3s ease;
+      --error:#ff6b6b;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;
-    margin:0;
-    font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    color:var(--icy-2);
-    background:linear-gradient(180deg,var(--bg),#04121a)}
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color:var(--icy-2);
+      background:linear-gradient(180deg,var(--bg),#04121a);
+      scroll-behavior: smooth;
+    }
     header{
-          position: sticky; 
-    top: 0;
-    z-index: 999; 
-    background: rgba(0, 0, 0, 0.2); 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+      position: sticky; 
+      top: 0;
+      z-index: 999; 
+      background: rgba(0, 0, 0, 0.2); 
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
     .site-header{
-    position: sticky; 
-    top: 0;
-    z-index: 999; 
       display:flex;
       align-items:center;
       justify-content:space-between;
       padding:14px 18px;
       border-bottom:1px solid rgba(255,255,255,0.03);
       gap:12px;
-      flex-wrap:wrap}
-    .brand h1{margin:0;
-    font-size:20px}
+      flex-wrap:wrap;
+    }
+    .brand h1{
+      margin:0;
+      font-size:20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     .brand h1 span{color:var(--icy-1)}
-    .subtitle{margin:4px 0 0;
-    font-size:12px;
-    color:rgba(223,247,255,0.8)}
+    .subtitle{
+      margin:4px 0 0;
+      font-size:12px;
+      color:rgba(223,247,255,0.8)
+    }
     .controls{
-      
       display:flex;
       gap:8px;
       align-items:center;
       flex:1;
-      min-width:200px}
-    .controls input[type="search"]{padding:8px 12px;
-    border-radius:8px;
-    border:1px solid rgba(255,255,255,0.06);
-    background:transparent;
-    color:var(--icy-2);
-    min-width:160px;
-    flex:1}
-    .controls button{padding:8px 12px;border-radius:8px;
-    border:none;
-    background:linear-gradient(180deg,var(--icy-1),#6fcfff);
-    color:#012;
-    cursor:pointer}
-    .controls button.toggle-fav.active{background:var(--gold);
-    color:#012}
-    main.container{padding:20px;
-    max-width:1100px;
-    margin:18px auto;
-    flex:1}
-    
-    .mix-grid{display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.03);
-    padding:14px;
-    border-radius:12px;box-shadow:0 6px 18px rgba(3,8,14,0.6);
-    display:flex;
-    flex-direction:column}
-    .art{height:140px;
-    border-radius:8px;
-    background:linear-gradient(135deg,var(--icy-1),#2aa6ff);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;color:#012;
-    font-size:36px;
-    user-select:none}
+      min-width:200px;
+    }
+    .controls input[type="search"]{
+      padding:8px 12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.06);
+      background:transparent;
+      color:var(--icy-2);
+      min-width:160px;
+      flex:1;
+      transition: var(--transition);
+    }
+    .controls input[type="search"]:focus {
+      outline: none;
+      border-color: var(--icy-1);
+      box-shadow: 0 0 0 2px rgba(139, 211, 255, 0.2);
+    }
+    .controls button{
+      padding:8px 12px;
+      border-radius:8px;
+      border:none;
+      background:linear-gradient(180deg,var(--icy-1),#6fcfff);
+      color:#012;
+      cursor:pointer;
+      transition: var(--transition);
+    }
+    .controls button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .controls button.toggle-fav.active{
+      background:var(--gold);
+      color:#012;
+    }
+    main.container{
+      padding:20px;
+      max-width:1100px;
+      margin:18px auto;
+      flex:1;
+    }
+    .mix-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+      gap:18px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      padding:14px;
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(3,8,14,0.6);
+      display:flex;
+      flex-direction:column;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(3,8,14,0.8);
+    }
+    .art{
+      height:140px;
+      border-radius:8px;
+      background:linear-gradient(135deg,var(--icy-1),#2aa6ff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:#012;
+      font-size:36px;
+      user-select:none;
+      transition: var(--transition);
+    }
+    .card:hover .art {
+      transform: scale(0.98);
+    }
     .card h3{
       margin:10px 0 6px;
-    font-size:16px}
-    .meta{font-size:13px;
-    color:rgba(223,247,255,0.75);
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap}
-    .row{display:flex;
-    gap:8px;align-items:center;
-    margin-top:12px;
-    flex-wrap:wrap}
-    .btn{padding:8px 10px;
-    border-radius:8px;border:none;background:rgba(255,255,255,0.06);color:var(--icy-2);
-    cursor:pointer;text-decoration:none}
-    .btn.play{background:linear-gradient(90deg,var(--icy-1),#6fcfff);
-    color:#012}
-    .btn.download{background:transparent;
-    border:1px solid rgba(255,255,255,0.06)}
-    
-    .btn.favorite{font-size:18px;padding:6px 8px;
-    background:transparent;
-    color:var(--icy-2);
-    border:none;
-    cursor:pointer}
-    .btn.favorite.active{color:var(--gold)}
-    .small{font-size:12px;
-    color:rgba(223,247,255,0.7)}
-    .empty-state{text-align:center;
-    color:rgba(223,247,255,0.5);
-    margin-top:28px}
+      font-size:16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .meta{
+      font-size:13px;
+      color:rgba(223,247,255,0.75);
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .row{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      padding:8px 10px;
+      border-radius:8px;
+      border:none;
+      background:rgba(255,255,255,0.06);
+      color:var(--icy-2);
+      cursor:pointer;
+      text-decoration:none;
+      transition: var(--transition);
+    }
+    .btn:hover {
+      background:rgba(255,255,255,0.1);
+    }
+    .btn.play{
+      background:linear-gradient(90deg,var(--icy-1),#6fcfff);
+      color:#012;
+    }
+    .btn.play:hover {
+      box-shadow: 0 2px 8px rgba(139, 211, 255, 0.3);
+    }
+    .btn.download{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .btn.download:hover {
+      border-color: var(--icy-1);
+      color: var(--icy-1);
+    }
+    .btn.favorite{
+      font-size:18px;
+      padding:6px 8px;
+      background:transparent;
+      color:var(--icy-2);
+      border:none;
+      cursor:pointer;
+    }
+    .btn.favorite.active{
+      color:var(--gold);
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    }
+    .small{
+      font-size:12px;
+      color:rgba(223,247,255,0.7);
+    }
+    .empty-state{
+      text-align:center;
+      color:rgba(223,247,255,0.5);
+      margin-top:28px;
+      grid-column: 1 / -1;
+    }
     footer{
-          position: sticky; 
-  bottom: -0;
-    z-index: 999; 
-        background: rgba(0, 0, 0, 0.2); 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+      position: sticky; 
+      bottom: -0;
+      z-index: 999; 
+      background: rgba(0, 0, 0, 0.2); 
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
-    .site-footer{text-align:center;
-    padding:14px 0;
-    color:rgba(223,247,255,0.4)}
-    audio,video{width:100%;
-    border-radius:8px;
-    outline:none;
-      
+    .site-footer{
+      text-align:center;
+      padding:14px 0;
+      color:rgba(223,247,255,0.4);
+    }
+    audio,video{
+      width:100%;
+      border-radius:8px;
+      outline:none;
+    }
+    .loading-card {
+      animation: pulse 1.5s infinite;
+      height: 300px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--icy-2);
+    }
+    .error {
+      color: var(--error);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    .quality-menu {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .quality-menu button {
+      padding: 4px 8px;
+      font-size: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--icy-2);
+      border-radius: 4px;
+    }
+    .quality-menu button:hover {
+      background: var(--icy-1);
+      color: #012;
+    }
+    .tracklist {
+      font-size: 12px;
+      margin-top: 8px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .card.expanded .tracklist {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .tracklist-item {
+      padding: 4px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.05);
+      display: flex;
+    }
+    .tracklist-time {
+      width: 40px;
+      color: var(--icy-1);
+    }
+    .tracklist-info {
+      flex: 1;
     }
     
-    @media(max-width:520px){.brand h1{font-size:16px}
-    .controls input[type="search"]{min-width:110px}}
+    /* Hide media source in developer tools */
+    audio::-webkit-media-controls-enclosure,
+    video::-webkit-media-controls-enclosure {
+      display: none !important;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    
+    @media(max-width:520px){
+      .brand h1{font-size:16px}
+      .controls input[type="search"]{min-width:110px}
+      .mix-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
   <header class="site-header">
     <div class="brand">
-      <h1>DJ <span id="dj-name">Daxton 254 </span></h1>
+      <h1>🎧 DJ <span id="dj-name">Daxton 254</span></h1>
       <div class="subtitle">Stream • Preview • Download — Smooth as ice</div>
     </div>
 
     <div class="controls" role="search">
       <input id="search" type="search" placeholder="Search mixes, genre or year..." autocomplete="off" />
-      <button id="refresh" title="Reload data">Refresh</button>
+      <button id="refresh" title="Reload data">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M23 4v6h-6M1 20v-6h6"></path>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+        </svg>
+      </button>
       <button id="toggle-favorites" class="toggle-fav" title="Show favorites only">★ Favorites</button>
     </div>
   </header>
 
   <main class="container">
-    <section id="mixes" class="mix-grid" aria-live="polite"></section>
-    <div id="empty" class="empty-state" style="display:none;">No mixes found — edit the JSON block inside this file to add mixes.</div>
+    <section id="mixes" class="mix-grid" aria-live="polite">
+      <!-- Loading placeholder -->
+      <div class="loading-card">Loading mixes...</div>
+    </section>
+    <div id="empty" class="empty-state" style="display:none;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <p>No mixes found</p>
+      <p>Edit the JSON block inside this file to add mixes</p>
+    </div>
   </main>
 
   <footer class="site-footer">
-    <small>Built with ❤️ by  DJ Daxton .For easy downloading of my mixes dj Daxton 254 <i>The Intellectual Prince</i>.</small>
+    <small>Built with ❤️ by DJ Daxton. For easy downloading of my mixes. <i>The Intellectual Prince</i>.</small>
   </footer>
 
-  <!-- EMBEDDED JSON DATA
-       Edit this JSON array to add/remove mixes.
-       For each Google Drive file, put the FILE_ID (the long code between /d/ and /view).
-       The script constructs direct links: https://drive.google.com/uc?export=download&id=FILE_ID
-  -->
+  <!-- EMBEDDED JSON DATA -->
   <script id="mixes-data" type="application/json">
 [
   {
@@ -179,10 +348,17 @@
     "genre": "Deep House",
     "year": 2025,
     "length": "1:12:34",
-    "fileId": "https://drive.google.com/uc?export=download&id=1A2B3C4D5E6F7G8H9I",
+    "fileId": "1toT5FpqNwjkyzwVB1-joK3MJRoGlyIjv",
     "filename": "late-night-vibes.mp3",
     "type": "audio",
-    "artText": "LN"
+    "artText": "LN",
+    "bpm": 122,
+    "tags": ["deep", "chill", "night"],
+    "tracklist": [
+      {"time": "0:00", "artist": "Solomun", "title": "Home"},
+      {"time": "4:32", "artist": "Keinemusik", "title": "Muyè"},
+      {"time": "9:15", "artist": "&ME", "title": "After Dark"}
+    ]
   },
   {
     "title": "Summer Live Set",
@@ -192,14 +368,20 @@
     "fileId": "FILE_ID_HERE_MP4",
     "filename": "summer-live.mp4",
     "type": "video",
-    "artText": "SL"
+    "artText": "SL",
+    "bpm": 128,
+    "tags": ["summer", "live", "festival"],
+    "tracklist": [
+      {"time": "0:00", "artist": "Peggy Gou", "title": "Nanana"},
+      {"time": "3:45", "artist": "Disclosure", "title": "Ultimatum"}
+    ]
   }
 ]
   </script>
 
   <script>
-  /***** Single-file DJ Mixes player script *****/
-
+  /***** Enhanced DJ Mixes Player *****/
+  
   // Elements
   const mixesContainer = document.getElementById('mixes');
   const searchInput = document.getElementById('search');
@@ -211,238 +393,426 @@
   let mixesData = [];
   let showingFavorites = false;
   let currentFilter = '';
-  let currentRenderedList = []; // currently rendered list (after filters)
+  let currentRenderedList = [];
   const FAVORITES_KEY = 'djmixes_favorites';
-  const downloadCounts = {}; // in-memory counts
+  const PLAYBACK_KEY = 'djmixes_playback';
+  const downloadCounts = {};
+  const APP_PASSWORD = null; // Set to string to enable password protection
 
-  /* Helpers */
-  function makeDriveLink(id){
-    if(!id) return '';
-    return `https://drive.google.com/uc?export=download&id=${id}`;
+  /* ===== CORE FUNCTIONS ===== */
+  
+  // Password protection (optional)
+  function checkAuth() {
+    if(!APP_PASSWORD) return true;
+    
+    const savedHash = localStorage.getItem('djmixes_auth');
+    const entered = prompt("Enter site password:");
+    
+    if(!entered) {
+      document.body.innerHTML = '<div style="padding:20px;text-align:center;"><h1>Access Denied</h1></div>';
+      return false;
+    }
+    
+    // Simple hash for basic obfuscation
+    const hash = btoa(entered.split('').reverse().join(''));
+    if(hash !== APP_PASSWORD && entered !== APP_PASSWORD) {
+      document.body.innerHTML = '<div style="padding:20px;text-align:center;"><h1>Access Denied</h1></div>';
+      return false;
+    }
+    
+    localStorage.setItem('djmixes_auth', hash);
+    return true;
   }
 
-  function safeParseJSON(text){
+  // Improved Google Drive ID extraction
+  function getDriveFileId(url) {
+    if(!url) return null;
+    if(!url.includes('drive.google.com')) return url;
+    
+    // Standard format: /file/d/FILE_ID/view
+    let match = url.match(/\/file\/d\/([^\/]+)/);
+    if(match) return match[1];
+    
+    // Open format: ?id=FILE_ID
+    match = url.match(/[?&]id=([^&]+)/);
+    if(match) return match[1];
+    
+    // Shortener format
+    match = url.match(/\/d\/([^\/]+)/);
+    return match ? match[1] : null;
+  }
+
+  // Construct Drive links
+  function getDriveLinks(fileId) {
+    if(!fileId) return { download: '#', stream: '#' };
+    
+    // Direct streaming link that works with audio/video elements
+    return {
+      download: `https://drive.google.com/uc?export=download&id=${fileId}`,
+      stream: `https://docs.google.com/uc?export=open&id=${fileId}`
+    };
+  }
+
+  // JSON parsing with error handling
+  function safeParseJSON(text) {
     try { return JSON.parse(text); }
     catch(e){ console.error('JSON parse failed', e); return []; }
   }
 
-  function getFavorites(){
+  // Favorites management
+  function getFavorites() {
     try { return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || []; }
     catch { return []; }
   }
-  function saveFavorites(list){ localStorage.setItem(FAVORITES_KEY, JSON.stringify(list)); }
+  
+  function saveFavorites(list) { 
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(list)); 
+  }
 
-  /* Load mixes from embedded JSON block */
-  function loadMixesFromEmbedded(){
+  /* ===== DATA LOADING ===== */
+  
+  function loadMixesFromEmbedded() {
     const jsonText = document.getElementById('mixes-data').textContent.trim();
-    mixesData = safeParseJSON(jsonText);
-    // Basic validation: ensure array
+    mixesData = safeParseJSON(jsonText).map(mix => ({
+      ...mix,
+      // Ensure fileId is properly extracted
+      fileId: getDriveFileId(mix.fileId)
+    }));
+    
     if(!Array.isArray(mixesData)) mixesData = [];
   }
 
-  /* Render helpers */
-  function updateDownloadCountUI(fileId){
-    const el = document.querySelector(`[data-dlcount="${fileId}"]`);
-    if(el) el.textContent = `Downloads: ${downloadCounts[fileId]||0}`;
+  /* ===== UI RENDERING ===== */
+  
+  function createTracklistElement(tracks) {
+    if(!tracks || !tracks.length) return null;
+    
+    const container = document.createElement('div');
+    container.className = 'tracklist';
+    
+    tracks.forEach(track => {
+      const item = document.createElement('div');
+      item.className = 'tracklist-item';
+      item.innerHTML = `
+        <div class="tracklist-time">${track.time}</div>
+        <div class="tracklist-info">${track.artist} - ${track.title}</div>
+      `;
+      container.appendChild(item);
+    });
+    
+    return container;
   }
 
-  function createCard(m){
+  function createCard(mix) {
     const card = document.createElement('article');
     card.className = 'card';
-    card.setAttribute('data-fileid', m.fileId || '');
-
-    // art
+    card.setAttribute('data-fileid', mix.fileId || '');
+    
+    // Artwork
     const art = document.createElement('div');
     art.className = 'art';
-    art.textContent = m.artText || (m.title||'Mix').slice(0,2).toUpperCase();
+    art.textContent = mix.artText || (mix.title||'Mix').slice(0,2).toUpperCase();
     card.appendChild(art);
 
-    // title
+    // Title
     const title = document.createElement('h3');
-    title.textContent = m.title || 'Untitled Mix';
+    title.textContent = mix.title || 'Untitled Mix';
     card.appendChild(title);
 
-    // meta
+    // Metadata
     const meta = document.createElement('div');
     meta.className = 'meta';
-    meta.innerHTML = `<span class="small">${m.genre||'Unknown'}</span><span class="small">${m.length||''}</span><span class="small">${m.year||''}</span>`;
+    
+    let metaText = mix.genre || 'Unknown';
+    if(mix.bpm) metaText += ` • ${mix.bpm} BPM`;
+    metaText += ` • ${mix.length || ''}`;
+    if(mix.year) metaText += ` • ${mix.year}`;
+    
+    meta.innerHTML = `<span>${metaText}</span>`;
     card.appendChild(meta);
 
-    // player row
-    const row = document.createElement('div');
-    row.className = 'row';
+    // Error display if no fileId
+    if(!mix.fileId) {
+      const error = document.createElement('div');
+      error.className = 'error';
+      error.textContent = 'Missing Google Drive file ID';
+      card.appendChild(error);
+      card.style.opacity = '0.7';
+    }
 
-    const src = makeDriveLink(m.fileId);
-    if(m.type === 'video'){
-      const vid = document.createElement('video');
-      vid.controls = true;
-      vid.preload = 'none';
-      vid.src = src;
-      vid.setAttribute('data-fileid', m.fileId);
-      row.appendChild(vid);
+    // Player row
+    const playerRow = document.createElement('div');
+    playerRow.className = 'row';
+    
+    const links = getDriveLinks(mix.fileId);
+    if(mix.type === 'video') {
+      const video = document.createElement('video');
+      video.controls = true;
+      video.preload = 'metadata';
+      video.src = links.stream;
+      video.setAttribute('data-fileid', mix.fileId);
+      playerRow.appendChild(video);
+      
+      // Add quality selector for videos
+      const qualityMenu = document.createElement('div');
+      qualityMenu.className = 'quality-menu';
+      qualityMenu.innerHTML = `
+        <button data-quality="sd">SD</button>
+        <button data-quality="hd">HD</button>
+      `;
+      
+      qualityMenu.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          video.src = `${links.stream}&vq=${btn.dataset.quality}`;
+        });
+      });
+      
+      playerRow.appendChild(qualityMenu);
     } else {
       const audio = document.createElement('audio');
       audio.controls = true;
-      audio.preload = 'none';
-      audio.src = src;
-      audio.setAttribute('data-fileid', m.fileId);
-      row.appendChild(audio);
+      audio.preload = 'metadata';
+      audio.src = links.stream;
+      audio.setAttribute('data-fileid', mix.fileId);
+      playerRow.appendChild(audio);
     }
+    
+    card.appendChild(playerRow);
 
-    card.appendChild(row);
-
-    // buttons row
+    // Buttons row
     const btnRow = document.createElement('div');
     btnRow.className = 'row';
 
-    // favorite button
+    // Favorite button
     const favBtn = document.createElement('button');
     favBtn.className = 'btn favorite';
     const favs = getFavorites();
-    const isFav = favs.includes(m.fileId);
-    if(isFav){ favBtn.classList.add('active'); favBtn.textContent = '★'; }
-    else { favBtn.textContent = '☆'; }
-
+    const isFav = favs.includes(mix.fileId);
+    favBtn.textContent = isFav ? '★' : '☆';
     favBtn.title = isFav ? 'Remove from favorites' : 'Add to favorites';
-    favBtn.onclick = (e) => {
+    
+    favBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       let list = getFavorites();
-      if(list.includes(m.fileId)) list = list.filter(id => id !== m.fileId);
-      else list.push(m.fileId);
+      if(list.includes(mix.fileId)) {
+        list = list.filter(id => id !== mix.fileId);
+        favBtn.textContent = '☆';
+        favBtn.title = 'Add to favorites';
+      } else {
+        list.push(mix.fileId);
+        favBtn.textContent = '★';
+        favBtn.title = 'Remove from favorites';
+      }
       saveFavorites(list);
-      // re-render with same filter state
-      applyFiltersAndRender();
-    };
+      favBtn.classList.toggle('active', !isFav);
+      
+      if(showingFavorites) applyFiltersAndRender();
+    });
+    
+    if(isFav) favBtn.classList.add('active');
     btnRow.appendChild(favBtn);
 
-    // download link
-    const dl = document.createElement('a');
-    dl.className = 'btn download';
-    dl.href = src;
-    dl.setAttribute('download', m.filename || 'mix');
-    dl.textContent = 'Download';
-    // increment counter on click
-    dl.onclick = () => {
-      downloadCounts[m.fileId] = (downloadCounts[m.fileId] || 0) + 1;
-      updateDownloadCountUI(m.fileId);
-      // allow normal download to proceed
-      return true;
-    };
-    btnRow.appendChild(dl);
+    // Download button (now a button instead of <a> tag)
+    const dlBtn = document.createElement('button');
+    dlBtn.className = 'btn download';
+    dlBtn.textContent = 'Download';
+    
+    dlBtn.addEventListener('click', async () => {
+      // Track download
+      downloadCounts[mix.fileId] = (downloadCounts[mix.fileId] || 0) + 1;
+      updateDownloadCountUI(mix.fileId);
+      trackDownload(mix.fileId);
+      
+      // Create hidden iframe to trigger download
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = links.download;
+      document.body.appendChild(iframe);
+      
+      // Clean up after download starts
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+      }, 5000);
+    });
+    
+    btnRow.appendChild(dlBtn);
 
-    // download count
+    // Download counter
     const dlCount = document.createElement('span');
     dlCount.className = 'small';
     dlCount.style.marginLeft = '8px';
-    dlCount.setAttribute('data-dlcount', m.fileId);
-    dlCount.textContent = `Downloads: ${downloadCounts[m.fileId]||0}`;
+    dlCount.setAttribute('data-dlcount', mix.fileId);
+    dlCount.textContent = `Downloads: ${downloadCounts[mix.fileId]||0}`;
     btnRow.appendChild(dlCount);
 
     card.appendChild(btnRow);
 
+    // Tracklist (hidden by default)
+    if(mix.tracklist && mix.tracklist.length) {
+      const tracklist = createTracklistElement(mix.tracklist);
+      if(tracklist) {
+        card.appendChild(tracklist);
+        
+        // Click to expand/collapse tracklist
+        card.addEventListener('click', (e) => {
+          if(e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+          card.classList.toggle('expanded');
+        });
+      }
+    }
+
     return card;
   }
 
-  /* Render list */
-  function renderMixes(list){
+  function renderMixes(list) {
     mixesContainer.innerHTML = '';
     currentRenderedList = Array.isArray(list) ? list : [];
 
-    if(!currentRenderedList || currentRenderedList.length === 0){
+    if(!currentRenderedList.length) {
       emptyState.style.display = 'block';
-      setupAutoPlayNext(); // nothing to do but keep it safe
+      setupAutoPlayNext();
       return;
     }
+    
     emptyState.style.display = 'none';
 
     // Create and append cards
-    currentRenderedList.forEach(m => {
-      const card = createCard(m);
+    currentRenderedList.forEach(mix => {
+      const card = createCard(mix);
       mixesContainer.appendChild(card);
     });
 
-    // After DOM nodes ready, setup autoplay on the rendered list
+    // Setup playback features
     setupAutoPlayNext();
+    setupPlaybackMemory();
   }
 
-  /* Apply current filters (search + favorites toggle) */
-  function applyFiltersAndRender(){
+  /* ===== FILTERING & SEARCH ===== */
+  
+  function applyFiltersAndRender() {
     currentFilter = (searchInput.value || '').toLowerCase().trim();
 
-    let filtered = mixesData.filter(m => {
-      // basic fields safety
-      const title = (m.title||'').toLowerCase();
-      const genre = (m.genre||'').toLowerCase();
-      const year = (m.year||'').toString();
+    let filtered = mixesData.filter(mix => {
+      // Basic fields safety
+      const title = (mix.title||'').toLowerCase();
+      const genre = (mix.genre||'').toLowerCase();
+      const year = (mix.year||'').toString();
+      const tags = (mix.tags||[]).join(' ').toLowerCase();
+      
       const q = currentFilter;
-      const matches = q === '' || title.includes(q) || genre.includes(q) || year.includes(q);
+      const matches = q === '' || 
+        title.includes(q) || 
+        genre.includes(q) || 
+        year.includes(q) || 
+        tags.includes(q);
+      
       return matches;
     });
 
-    if(showingFavorites){
+    if(showingFavorites) {
       const favs = getFavorites();
-      filtered = filtered.filter(m => favs.includes(m.fileId));
+      filtered = filtered.filter(mix => favs.includes(mix.fileId));
     }
 
     renderMixes(filtered);
   }
 
-  /* Search handler */
-  searchInput.addEventListener('input', () => {
-    applyFiltersAndRender();
-  });
-
-  /* Favorites toggle */
-  toggleFavBtn.addEventListener('click', () => {
-    showingFavorites = !showingFavorites;
-    toggleFavBtn.classList.toggle('active', showingFavorites);
-    applyFiltersAndRender();
-  });
-
-  /* Refresh — reload the embedded JSON block (useful if you edit the file on GitHub and reload page) */
-  refreshBtn.addEventListener('click', () => {
-    loadMixesFromEmbedded();
-    applyFiltersAndRender();
-  });
-
-  /* Autoplay next track logic for the currently rendered list.
-     It finds all audio/video elements inside the mixesContainer in document order.
-     On 'ended', it locates the next media element and starts it. */
-  function setupAutoPlayNext(){
-    // remove previous handlers by cloning nodes? easier to re-query and rebind
+  /* ===== PLAYBACK FEATURES ===== */
+  
+  function setupAutoPlayNext() {
     const mediaEls = mixesContainer.querySelectorAll('audio, video');
-    if(!mediaEls || mediaEls.length === 0) return;
+    if(!mediaEls.length) return;
 
-    // convert NodeList to array
-    const arr = Array.from(mediaEls);
-
-    // attach handlers
-    arr.forEach((el, idx) => {
-      // clear previous handlers to avoid double-binding
-      el.onended = null;
+    Array.from(mediaEls).forEach((el, idx) => {
+      el.onended = null; // Clear previous
       el.onended = () => {
-        // pause all others
-        arr.forEach(x => { try{ x.pause(); } catch(e){} });
+        // Pause all others
+        Array.from(mediaEls).forEach(x => { try{ x.pause(); } catch(e){} });
+        
         const nextIdx = idx + 1;
-        if(nextIdx < arr.length){
+        if(nextIdx < mediaEls.length) {
           try {
-            arr[nextIdx].play();
-            arr[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
-          } catch(e){
-            console.warn('Auto-play failed (browser may block).', e);
+            mediaEls[nextIdx].play();
+            mediaEls[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } catch(e) {
+            console.warn('Auto-play failed', e);
           }
         }
       };
     });
   }
 
-  /* INIT */
-  (function init(){
+  function setupPlaybackMemory() {
+    const mediaEls = mixesContainer.querySelectorAll('audio, video');
+    
+    mediaEls.forEach(media => {
+      const fileId = media.dataset.fileid;
+      const savedTime = localStorage.getItem(`${PLAYBACK_KEY}_${fileId}`);
+      
+      if(savedTime) media.currentTime = parseFloat(savedTime);
+      
+      media.addEventListener('timeupdate', () => {
+        if(media.currentTime > 5) { // Only save after 5s of playback
+          localStorage.setItem(`${PLAYBACK_KEY}_${fileId}`, media.currentTime);
+        }
+      });
+    });
+  }
+
+  /* ===== ANALYTICS & TRACKING ===== */
+  
+  function updateDownloadCountUI(fileId) {
+    const el = document.querySelector(`[data-dlcount="${fileId}"]`);
+    if(el) el.textContent = `Downloads: ${downloadCounts[fileId]||0}`;
+  }
+
+  function trackDownload(fileId) {
+    console.log('Download tracked:', fileId);
+    // Here you could send to Google Analytics or your own endpoint
+    // Example: fetch('/api/track-download', { method: 'POST', body: JSON.stringify({fileId}) });
+  }
+
+  /* ===== EVENT LISTENERS ===== */
+  
+  searchInput.addEventListener('input', () => {
+    applyFiltersAndRender();
+  });
+
+  toggleFavBtn.addEventListener('click', () => {
+    showingFavorites = !showingFavorites;
+    toggleFavBtn.classList.toggle('active', showingFavorites);
+    applyFiltersAndRender();
+  });
+
+  refreshBtn.addEventListener('click', () => {
     loadMixesFromEmbedded();
     applyFiltersAndRender();
-  })();
+  });
 
+  /* ===== INITIALIZATION ===== */
+  
+  function init() {
+    if(!checkAuth()) return;
+    
+    loadMixesFromEmbedded();
+    applyFiltersAndRender();
+    
+    // Load any saved download counts
+    try {
+      const savedCounts = localStorage.getItem('djmixes_downloads');
+      if(savedCounts) Object.assign(downloadCounts, JSON.parse(savedCounts));
+    } catch(e) {
+      console.error('Failed to load download counts', e);
+    }
+    
+    // Save download counts before unload
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('djmixes_downloads', JSON.stringify(downloadCounts));
+    });
+  }
+
+  // Start the app
+  init();
   </script>
-
 </body>
 </html>

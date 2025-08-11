@@ -283,11 +283,6 @@
       flex: 1;
     }
     
-    /* Hide media source in developer tools */
-    audio::-webkit-media-controls-enclosure,
-    video::-webkit-media-controls-enclosure {
-      display: none !important;
-    }
     
     @keyframes pulse {
       0%, 100% { opacity: 0.6; }
@@ -455,7 +450,7 @@ function getDriveLinks(fileId, type = 'audio') {
       // direct download link (kept for the Download button)
       download: `https://drive.google.com/uc?export=download&id=${fileId}`,
       // direct API streaming link (works with <audio>/<video>)
-      stream: `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${AIzaSyBtUhLd-BQvIdTL2pyOpkngx83xQwhQEeo}`
+      stream: `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${API_KEY}`
     };
 }
 

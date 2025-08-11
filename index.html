@@ -446,12 +446,18 @@
   function getDriveLinks(fileId) {
     if(!fileId) return { download: '#', stream: '#' };
     
-    // Direct streaming link that works with audio/video elements
+    const API_KEY = "AIzaSyBtUhLd-BQvIdTL2pyOpkngx83xQwhQEeo"; // paste your Drive API key here
+
+function getDriveLinks(fileId, type = 'audio') {
+    if(!fileId) return { download: '#', stream: '#' };
+    
     return {
+      // direct download link (kept for the Download button)
       download: `https://drive.google.com/uc?export=download&id=${fileId}`,
-      stream: `https://docs.google.com/uc?export=open&id=${fileId}`
+      // direct API streaming link (works with <audio>/<video>)
+      stream: `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${AIzaSyBtUhLd-BQvIdTL2pyOpkngx83xQwhQEeo}`
     };
-  }
+}
 
   // JSON parsing with error handling
   function safeParseJSON(text) {
